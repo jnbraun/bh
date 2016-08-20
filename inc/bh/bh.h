@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016 Jean-Noël Braun.
+* Copyright (c) 2016 Jean-Noel Braun.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,7 @@ typedef unsigned __int64  uint64_t;
 #define bh_min(a, b) (((a) < (b)) ? (a) : (b))
 #define bh_max(a, b) (((a) > (b)) ? (a) : (b))
 #define bh_swap(a, b, type) { type t = (a); (a) = (b); (b) = t; }
-#define bh_abs(a) (((a) < (0)) ? (-a) : (a))
+#define bh_abs(a) (((a) < (0)) ? -(a) : (a))
 
 #define bh_free(buf) { if (buf) {free(buf); (buf) = NULL; }}
 

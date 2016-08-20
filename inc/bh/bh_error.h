@@ -33,7 +33,6 @@ extern "C" {
 #define bh_info(msg) { fprintf(stderr, "[INFO] %s\n", (msg)); fflush(stderr); }
 #define bh_warning(msg) { fprintf(stderr, "[WARNING] %s\n", (msg)); }
 #define bh_error(msg, err) { fprintf(stderr, "[ERROR] %s\n", (msg)); return err; }
-#define bh_assert(cond, msg, err) { if (cond) { (void)0; }else { fprintf(stderr, "[ERROR] %s\n", (msg)); return err; }}
 
 #define bh_assert(exp, msg, err) { if (exp) { (void)0; }else { fprintf(stderr, "[ERROR] %s\n", (msg)); return err; }}
 #define bh_assert_valid_ptr(p, err)  if (((void*)p) == ((void*)NULL)) { fprintf(stderr, "[ERROR] Invalid pointer\n"); return err;}
