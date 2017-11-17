@@ -66,6 +66,7 @@ static bh_inline char *bh_fgetline(FILE *fp)
 	}
 	if (line[curr - 1] == '\n')
 		line[curr - 1] = '\0';
+		
 	return line;
 }
 
@@ -139,6 +140,7 @@ static bh_inline int bh_strstrip(char *s)
 			s[i - offset] = c;
 	}
 	s[len - offset] = '\0';
+
 	return 0;
 }
 
@@ -149,6 +151,7 @@ static bh_inline int bh_fill_option(char **option, char *argv)
 	length = strlen(argv) + 1;
 	*option = (char *)calloc(length, sizeof(char));
 	memcpy(*option, argv, length);
+
 	return 0;
 }
 
@@ -166,6 +169,7 @@ static bh_inline int bh_fskipline(FILE *f, int nb_lines)
 		}
 		bh_free(line);
 	}
+
 	return 0;
 }
 
