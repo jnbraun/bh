@@ -32,7 +32,7 @@ extern "C" {
 
 static bh_inline char *bh_fgetline(FILE *fp)
 {
-	int size = 1024, readsize, curr;
+	int size = 1024, readsize, curr, n;
 	char *line = NULL;
 
 	if (feof(fp)) {
@@ -58,7 +58,10 @@ static bh_inline char *bh_fgetline(FILE *fp)
 		readsize = size - curr;
 		if (readsize > INT_MAX)
 			readsize = INT_MAX - 1;
-		fgets(&line[curr], readsize, fp);
+		if (!fgets(&line[curr], readsize, fp)) {
+			bh_free(line);
+			return NULL;
+		}
 		curr = (int)strlen(line);
 	}
 	if (line[curr - 1] == '\n')
