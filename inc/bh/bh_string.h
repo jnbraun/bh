@@ -32,42 +32,42 @@ extern "C" {
 
 static bh_inline char *bh_fgetline(FILE *fp)
 {
-	int size = 1024, readsize, curr, n;
-	char *line = NULL;
+    int size = 1024, readsize, curr, n;
+    char *line = NULL;
 
-	if (feof(fp)) {
-		return NULL;
-	}	
-	
-	line = (char *)calloc(size, sizeof(char));
-	
-	if (!fgets(line, size, fp)) {
-		bh_free(line);
-		return NULL;
-	}
+    if (feof(fp)) {
+        return NULL;
+    }	
+    
+    line = (char *)calloc(size, sizeof(char));
+    
+    if (!fgets(line, size, fp)) {
+        bh_free(line);
+        return NULL;
+    }
 
-	curr = (int)strlen(line);
+    curr = (int)strlen(line);
 
-	while ((line[curr - 1] != '\n') && !feof(fp)) {
-		if (curr == size - 1){
-			size *= 2;
-			line = (char *)realloc(line, size * sizeof(char));
-			if (!line)
-				return NULL;
-		}
-		readsize = size - curr;
-		if (readsize > INT_MAX)
-			readsize = INT_MAX - 1;
-		if (!fgets(&line[curr], readsize, fp)) {
-			bh_free(line);
-			return NULL;
-		}
-		curr = (int)strlen(line);
-	}
-	if (line[curr - 1] == '\n')
-		line[curr - 1] = '\0';
-		
-	return line;
+    while ((line[curr - 1] != '\n') && !feof(fp)) {
+        if (curr == size - 1){
+            size *= 2;
+            line = (char *)realloc(line, size * sizeof(char));
+            if (!line)
+                return NULL;
+        }
+        readsize = size - curr;
+        if (readsize > INT_MAX)
+            readsize = INT_MAX - 1;
+        if (!fgets(&line[curr], readsize, fp)) {
+            bh_free(line);
+            return NULL;
+        }
+        curr = (int)strlen(line);
+    }
+    if (line[curr - 1] == '\n')
+        line[curr - 1] = '\0';
+        
+    return line;
 }
 
 
@@ -129,48 +129,48 @@ static bh_inline int bh_strsplit(char *str, char c, char ***arr)
 
 static bh_inline int bh_strstrip(char *s)
 {
-	size_t i;
-	size_t len = strlen(s);
-	size_t offset = 0;
-	for (i = 0; i < len; ++i) {
-		char c = s[i];
-		if (c == ' ' || c == '\t' || c == '\n')
-			++offset;
-		else
-			s[i - offset] = c;
-	}
-	s[len - offset] = '\0';
+    size_t i;
+    size_t len = strlen(s);
+    size_t offset = 0;
+    for (i = 0; i < len; ++i) {
+        char c = s[i];
+        if (c == ' ' || c == '\t' || c == '\n')
+            ++offset;
+        else
+            s[i - offset] = c;
+    }
+    s[len - offset] = '\0';
 
-	return 0;
+    return 0;
 }
 
 static bh_inline int bh_fill_option(char **option, char *argv)
 {
-	size_t length;
-	bh_free(*option);
-	length = strlen(argv) + 1;
-	*option = (char *)calloc(length, sizeof(char));
-	memcpy(*option, argv, length);
+    size_t length;
+    bh_free(*option);
+    length = strlen(argv) + 1;
+    *option = (char *)calloc(length, sizeof(char));
+    memcpy(*option, argv, length);
 
-	return 0;
+    return 0;
 }
 
 
 static bh_inline int bh_fskipline(FILE *f, int nb_lines)
 {
-	int i;
-	char *line = NULL;
+    int i;
+    char *line = NULL;
 
-	for (i = 0; i < nb_lines; ++i) {
-		line = bh_fgetline(f);
-		if (line == NULL) {
-			rewind(f);
-			line = bh_fgetline(f);
-		}
-		bh_free(line);
-	}
+    for (i = 0; i < nb_lines; ++i) {
+        line = bh_fgetline(f);
+        if (line == NULL) {
+            rewind(f);
+            line = bh_fgetline(f);
+        }
+        bh_free(line);
+    }
 
-	return 0;
+    return 0;
 }
 
 

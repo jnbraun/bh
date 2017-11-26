@@ -43,31 +43,31 @@ extern "C" {
 #endif
 
 #if defined(_MSC_VER)
-#	define bh_inline __inline
+#define bh_inline __inline
 #elif defined(__GNUC__)
-#	define bh_inline __inline__
+#define bh_inline __inline__
 #else
-#	error Unknwown compiler
+#error Unknwown compiler
 #endif 
 
 #if defined(__GNUC__) || (defined(_MSC_VER) && (_MSC_VER >= 1600))
-#include <stdint.h>
+#   include <stdint.h>
 #else
-#  if (_MSC_VER < 1300)
+#if (_MSC_VER < 1300)
 typedef signed char       int8_t;
 typedef signed short      int16_t;
 typedef signed int        int32_t;
 typedef unsigned char     uint8_t;
 typedef unsigned short    uint16_t;
 typedef unsigned int      uint32_t;
-#  else
+#else
 typedef signed __int8     int8_t;
 typedef signed __int16    int16_t;
 typedef signed __int32    int32_t;
 typedef unsigned __int8   uint8_t;
 typedef unsigned __int16  uint16_t;
 typedef unsigned __int32  uint32_t;
-#  endif
+#endif
 typedef signed __int64    int64_t;
 typedef unsigned __int64  uint64_t;
 #endif

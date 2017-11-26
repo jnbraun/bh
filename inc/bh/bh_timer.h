@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016 Jean-Noël Braun.
+* Copyright (c) 2016 Jean-Noï¿½l Braun.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -41,56 +41,56 @@ extern "C" {
  * \brief Timer structure
  */
 typedef struct {
-	uint64_t	start;
-	uint64_t	stop;
-	uint64_t	freq;
+    uint64_t	start;
+    uint64_t	stop;
+    uint64_t	freq;
 } bh_timer; 
 
 
 static bh_inline int bh_timer_start(bh_timer *t) 
 {
 #if defined(_WIN32) || defined(_WIN64)
-	QueryPerformanceFrequency((LARGE_INTEGER*)(&(t->freq)));
-	QueryPerformanceCounter((LARGE_INTEGER*)(&(t->start)));
+    QueryPerformanceFrequency((LARGE_INTEGER*)(&(t->freq)));
+    QueryPerformanceCounter((LARGE_INTEGER*)(&(t->start)));
 #elif defined(__linux__)
-	{
-		struct timespec ts;
-		clock_gettime(CLOCK_MONOTONIC, &ts);
-		t->start = ((uint64_t)ts.tv_sec) * 1000000L + (uint64_t)(ts.tv_nsec / 1000);
-	}
+    {
+        struct timespec ts;
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+        t->start = ((uint64_t)ts.tv_sec) * 1000000L + (uint64_t)(ts.tv_nsec / 1000);
+    }
 #else
-	fprintf(stderr, "[ERROR] OS not supported\n");
+    fprintf(stderr, "[ERROR] OS not supported\n");
 #endif
-	return 0;
+    return 0;
 }
 
 static bh_inline int bh_timer_stop(bh_timer *t) 
 {
 #if defined(_WIN32) || defined(_WIN64)
-	QueryPerformanceCounter((LARGE_INTEGER*)(&(t->stop)));
+    QueryPerformanceCounter((LARGE_INTEGER*)(&(t->stop)));
 #elif defined(__linux__)
-	{
-		struct timespec ts;
-		clock_gettime(CLOCK_MONOTONIC, &ts);
-		t->stop = ((uint64_t)ts.tv_sec) * 1000000L + (uint64_t)(ts.tv_nsec / 1000);
-	}
+    {
+        struct timespec ts;
+        clock_gettime(CLOCK_MONOTONIC, &ts);
+        t->stop = ((uint64_t)ts.tv_sec) * 1000000L + (uint64_t)(ts.tv_nsec / 1000);
+    }
 #else
-	fprintf(stderr, "[ERROR] OS not supported\n");
+    fprintf(stderr, "[ERROR] OS not supported\n");
 #endif
-	return 0;
+    return 0;
 }
 
 static bh_inline double bh_timer_get_msec(bh_timer *t)
 {
-	uint64_t diff = t->stop - t->start;
+    uint64_t diff = t->stop - t->start;
 #if defined(_WIN32) || defined(_WIN64)
-	return (1000 * (double)(diff) / ((double)(t->freq)));
+    return (1000 * (double)(diff) / ((double)(t->freq)));
 #elif defined(__linux__)
-	return ((double)(diff) / 1000);
+    return ((double)(diff) / 1000);
 #else
-	fprintf(stderr, "[ERROR] OS not supported\n");
+    fprintf(stderr, "[ERROR] OS not supported\n");
 #endif
-	return 0;
+    return 0;
 }
 
 #ifdef __cplusplus

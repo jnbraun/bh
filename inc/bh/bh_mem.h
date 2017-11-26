@@ -40,45 +40,45 @@ extern "C" {
 
 static bh_inline void *bh_align_malloc(size_t size, size_t align)
 {
-	void *buf = NULL;
+    void *buf = NULL;
 #if defined(_MSC_VER)
-	buf = _aligned_malloc(size, align);
+    buf = _aligned_malloc(size, align);
 #elif defined(__MINGW32__) || defined(__MINGW64__)
-	buf = __mingw_aligned_malloc(size, align);
+    buf = __mingw_aligned_malloc(size, align);
 #elif defined(__GNUC__)
-	void *ptr = NULL;
-	int res;
-	align = (align + sizeof(void *) - 1) & ~(sizeof(void *) - 1); 
-	size = (size + align - 1) & ~(align - 1);
-	res = posix_memalign(&ptr, align, size);
-	buf = res ? NULL : ptr;
+    void *ptr = NULL;
+    int res;
+    align = (align + sizeof(void *) - 1) & ~(sizeof(void *) - 1); 
+    size = (size + align - 1) & ~(align - 1);
+    res = posix_memalign(&ptr, align, size);
+    buf = res ? NULL : ptr;
 #else
-	buf = malloc(size);
+    buf = malloc(size);
 #endif
-	return buf;
+    return buf;
 }
 
 static bh_inline void *bh_align_calloc(size_t size, size_t align)
 {
-	void *buf = bh_align_malloc(size, align);
-	if (buf != NULL)
-		memset(buf, 0, size);
-	return buf;
+    void *buf = bh_align_malloc(size, align);
+    if (buf != NULL)
+        memset(buf, 0, size);
+    return buf;
 }
 
 
 static bh_inline void bh_align_free(void * buf)
 {
-	if (buf != NULL) {
+    if (buf != NULL) {
 #if defined(_MSC_VER)
-		_aligned_free(buf);
+        _aligned_free(buf);
 #elif defined(__MINGW32__) || defined(__MINGW64__)
-		return __mingw_aligned_free(buf);
+        return __mingw_aligned_free(buf);
 #else
-		bh_free(buf);
+        bh_free(buf);
 #endif
-	}
-	buf = NULL;
+    }
+    buf = NULL;
 }
 
 

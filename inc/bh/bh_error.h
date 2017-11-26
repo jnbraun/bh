@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2016 Jean-Noël Braun.
+* Copyright (c) 2016 Jean-Noï¿½l Braun.
 *
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
